@@ -13,7 +13,6 @@ client = discord.Client(intents=intents)
 TOKEN = os.environ.get("DISCORD_TOKEN")
 tree = discord.app_commands.CommandTree(client)
 
-
 @tree.command(
     name="addroles",#コマンド名
     description="全員に特定のロールを付与します。",#コマンドの説明
