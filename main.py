@@ -11,7 +11,6 @@ guild = discord.Object(1082464517025431692)
  
 client = discord.Client(intents=intents)
 TOKEN = os.environ.get("DISCORD_TOKEN")
-#"MTA4MjQ2MDkwNDA4NTUzMjcwMg.GGqNKd.ghXmAIzAuB4mp9PIycNzwmGG01FWAZUtW9IwA4"     
 tree = discord.app_commands.CommandTree(client)
 
 @tree.command(
