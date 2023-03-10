@@ -47,7 +47,7 @@ async def removeroles(ctx:discord.Interaction,roleschoice:discord.Role):
     name="addroles_to_roles",#コマンド名
     description="特定のロール所有者に特定のロールを付与します。",#コマンドの説明
     guild=guild)
-async def addroles_to_roles(ctx:discord.Interaction,roleschoice:discord.Role):
+async def addroles_to_roles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
@@ -55,7 +55,7 @@ async def addroles_to_roles(ctx:discord.Interaction,roleschoice:discord.Role):
     for member in ctx.guild.members:
         if member.bot:
             continue
-        if not roleschoice in member.roles:
+        if not rolestarget in member.roles:
             continue
         await member.add_roles(roleschoice)
     await ctx.followup.send(f"指定のメンバーに{roleschoice.name}を付与しました",ephemeral = True)
@@ -64,7 +64,7 @@ async def addroles_to_roles(ctx:discord.Interaction,roleschoice:discord.Role):
     name="removeroles_from_roles",#コマンド名
     description="特定のロール所有者から特定のロールを剥奪します。",#コマンドの説明
     guild=guild)
-async def removeroles_from_roles(ctx:discord.Interaction,roleschoice:discord.Role):
+async def removeroles_from_roles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
@@ -72,7 +72,7 @@ async def removeroles_from_roles(ctx:discord.Interaction,roleschoice:discord.Rol
     for member in ctx.guild.members:
         if member.bot:
             continue
-        if not roleschoice in member.roles:
+        if not rolestarget in member.roles:
             continue
         await member.remove_roles(roleschoice)
     await ctx.followup.send(f"指定のメンバーから{roleschoice.name}を剥奪しました",ephemeral = True)
@@ -81,7 +81,7 @@ async def removeroles_from_roles(ctx:discord.Interaction,roleschoice:discord.Rol
     name="addroles_to_unroles",#コマンド名
     description="特定のロール非所有者に特定のロールを付与します。",#コマンドの説明
     guild=guild)
-async def addroles_to_unroles(ctx:discord.Interaction,roleschoice:discord.Role):
+async def addroles_to_unroles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
@@ -89,7 +89,7 @@ async def addroles_to_unroles(ctx:discord.Interaction,roleschoice:discord.Role):
     for member in ctx.guild.members:
         if member.bot:
             continue
-        if roleschoice in member.roles:
+        if rolestarget in member.roles:
             continue
         await member.add_roles(roleschoice)
     await ctx.followup.send(f"指定のメンバーに{roleschoice.name}を付与しました",ephemeral = True)
@@ -98,7 +98,7 @@ async def addroles_to_unroles(ctx:discord.Interaction,roleschoice:discord.Role):
     name="removeroles_from_unroles",#コマンド名
     description="特定のロール非所有者から特定のロールを剥奪します。",#コマンドの説明
     guild=guild)
-async def removeroles_from_unroles(ctx:discord.Interaction,roleschoice:discord.Role):
+async def removeroles_from_unroles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
@@ -106,7 +106,7 @@ async def removeroles_from_unroles(ctx:discord.Interaction,roleschoice:discord.R
     for member in ctx.guild.members:
         if member.bot:
             continue
-        if roleschoice in member.roles:
+        if rolestarget in member.roles:
             continue
         await member.remove_roles(roleschoice)
     await ctx.followup.send(f"指定のメンバーから{roleschoice.name}を剥奪しました",ephemeral = True)
