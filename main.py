@@ -6,8 +6,6 @@ intents = discord.Intents.default()  # 標準設定から
 intents.typing = False  # typingは受け取らない
 intents.message_content = True  # message_contentは受け取る
 intents.members = True
-
-guild = discord.Object(1082464517025431692)
  
 client = discord.Client(intents=intents)
 TOKEN = os.environ.get("DISCORD_TOKEN")
@@ -16,7 +14,7 @@ tree = discord.app_commands.CommandTree(client)
 @tree.command(
     name="addroles",#コマンド名
     description="全員に特定のロールを付与します。",#コマンドの説明
-    guild=guild)
+    )
 async def addroles(ctx:discord.Interaction,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
@@ -31,7 +29,7 @@ async def addroles(ctx:discord.Interaction,roleschoice:discord.Role):
 @tree.command(
     name="removeroles",#コマンド名
     description="全員から特定のロールを剥奪します。",#コマンドの説明
-    guild=guild)
+    )
 async def removeroles(ctx:discord.Interaction,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
@@ -46,7 +44,7 @@ async def removeroles(ctx:discord.Interaction,roleschoice:discord.Role):
 @tree.command(
     name="addroles_to_roles",#コマンド名
     description="特定のロール所有者に特定のロールを付与します。",#コマンドの説明
-    guild=guild)
+    )
 async def addroles_to_roles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
@@ -63,7 +61,7 @@ async def addroles_to_roles(ctx:discord.Interaction,rolestarget:discord.Role,rol
 @tree.command(
     name="removeroles_from_roles",#コマンド名
     description="特定のロール所有者から特定のロールを剥奪します。",#コマンドの説明
-    guild=guild)
+    )
 async def removeroles_from_roles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
@@ -80,7 +78,7 @@ async def removeroles_from_roles(ctx:discord.Interaction,rolestarget:discord.Rol
 @tree.command(
     name="addroles_to_unroles",#コマンド名
     description="特定のロール非所有者に特定のロールを付与します。",#コマンドの説明
-    guild=guild)
+    )
 async def addroles_to_unroles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
@@ -97,7 +95,7 @@ async def addroles_to_unroles(ctx:discord.Interaction,rolestarget:discord.Role,r
 @tree.command(
     name="removeroles_from_unroles",#コマンド名
     description="特定のロール非所有者から特定のロールを剥奪します。",#コマンドの説明
-    guild=guild)
+    )
 async def removeroles_from_unroles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
@@ -115,7 +113,7 @@ async def removeroles_from_unroles(ctx:discord.Interaction,rolestarget:discord.R
 # clientの準備完了時に呼び出されるイベント
 async def on_ready():
     sys.stdout.write("ready")
-    await tree.sync(guild=guild)
+    await tree.sync()
     # await tree.sync()
     sys.stdout.write('ready')
 
