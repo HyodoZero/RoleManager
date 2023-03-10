@@ -20,11 +20,16 @@ async def addroles(ctx:discord.Interaction,roleschoice:discord.Role):
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
     await ctx.response.defer(ephemeral = True)
-    for member in ctx.guild.members:
-        if member.bot:
-            continue
-        await member.add_roles(roleschoice)
-    await ctx.followup.send(f"メンバー全員に{roleschoice.name}を付与しました",ephemeral = True)
+    try:    
+        for member in ctx.guild.members:
+            if member.bot:
+                continue
+            await member.add_roles(roleschoice)
+        embed = discord.Embed(color = 0x00ff00, title= "動作完了", description=f"以下のロールを全員に付与しました。\n**{roleschoice.name}**")
+        await ctx.followup.send(embed=embed,ephemeral = True)
+    except discord.errors.Forbidden as error:
+        embed = discord.Embed(color = 0xff0000, title= "問題発生", description=f"以下の設定を確認してください。\n・「サーバー設定」→「ロール」を開く。\n・ロールの順序を入れ替え、「RoleManager」が操作したいロールよりも上にあるようにする。")
+        await ctx.followup.send(embed=embed,ephemeral = True)
     
 @tree.command(
     name="removeroles",#コマンド名
@@ -35,11 +40,17 @@ async def removeroles(ctx:discord.Interaction,roleschoice:discord.Role):
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
     await ctx.response.defer(ephemeral = True)
-    for member in ctx.guild.members:
-        if member.bot:
-            continue
-        await member.remove_roles(roleschoice)
-    await ctx.followup.send(f"メンバー全員から{roleschoice.name}を剥奪しました",ephemeral = True)
+    try:
+        for member in ctx.guild.members:
+            if member.bot:
+                continue
+            await member.remove_roles(roleschoice)
+        embed = discord.Embed(color = 0x00ff00, title= "動作完了", description=f"以下のロールを全員から剥奪しました。\n**{roleschoice.name}**")
+        await ctx.followup.send(embed=embed,ephemeral = True)
+    except discord.errors.Forbidden as error:
+        embed = discord.Embed(color = 0xff0000, title= "問題発生", description=f"以下の設定を確認してください。\n・「サーバー設定」→「ロール」を開く。\n・ロールの順序を入れ替え、「RoleManager」が操作したいロールよりも上にあるようにする。")
+        await ctx.followup.send(embed=embed,ephemeral = True)
+    
 
 @tree.command(
     name="addroles_to_roles",#コマンド名
@@ -50,13 +61,18 @@ async def addroles_to_roles(ctx:discord.Interaction,rolestarget:discord.Role,rol
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
     await ctx.response.defer(ephemeral = True)
-    for member in ctx.guild.members:
-        if member.bot:
-            continue
-        if not rolestarget in member.roles:
-            continue
-        await member.add_roles(roleschoice)
-    await ctx.followup.send(f"指定のメンバーに{roleschoice.name}を付与しました",ephemeral = True)
+    try:
+        for member in ctx.guild.members:
+            if member.bot:
+                continue
+            if not rolestarget in member.roles:
+                continue
+            await member.add_roles(roleschoice)
+        embed = discord.Embed(color = 0x00ff00, title= "動作完了", description=f"以下のロールを指定のメンバーに付与しました。\n**{roleschoice.name}**")
+        await ctx.followup.send(embed=embed,ephemeral = True)
+    except discord.errors.Forbidden as error:
+        embed = discord.Embed(color = 0xff0000, title= "問題発生", description=f"以下の設定を確認してください。\n・「サーバー設定」→「ロール」を開く。\n・ロールの順序を入れ替え、「RoleManager」が操作したいロールよりも上にあるようにする。")
+        await ctx.followup.send(embed=embed,ephemeral = True)
 
 @tree.command(
     name="removeroles_from_roles",#コマンド名
@@ -67,13 +83,18 @@ async def removeroles_from_roles(ctx:discord.Interaction,rolestarget:discord.Rol
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
     await ctx.response.defer(ephemeral = True)
-    for member in ctx.guild.members:
-        if member.bot:
-            continue
-        if not rolestarget in member.roles:
-            continue
-        await member.remove_roles(roleschoice)
-    await ctx.followup.send(f"指定のメンバーから{roleschoice.name}を剥奪しました",ephemeral = True)
+    try:
+        for member in ctx.guild.members:
+            if member.bot:
+                continue
+            if not rolestarget in member.roles:
+                continue
+            await member.remove_roles(roleschoice)
+        embed = discord.Embed(color = 0x00ff00, title= "動作完了", description=f"以下のロールを指定のメンバーから剥奪しました。\n**{roleschoice.name}**")
+        await ctx.followup.send(embed=embed,ephemeral = True)
+    except discord.errors.Forbidden as error:
+        embed = discord.Embed(color = 0xff0000, title= "問題発生", description=f"以下の設定を確認してください。\n・「サーバー設定」→「ロール」を開く。\n・ロールの順序を入れ替え、「RoleManager」が操作したいロールよりも上にあるようにする。")
+        await ctx.followup.send(embed=embed,ephemeral = True)
 
 @tree.command(
     name="addroles_to_unroles",#コマンド名
@@ -84,13 +105,18 @@ async def addroles_to_unroles(ctx:discord.Interaction,rolestarget:discord.Role,r
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
     await ctx.response.defer(ephemeral = True)
-    for member in ctx.guild.members:
-        if member.bot:
-            continue
-        if rolestarget in member.roles:
-            continue
-        await member.add_roles(roleschoice)
-    await ctx.followup.send(f"指定のメンバーに{roleschoice.name}を付与しました",ephemeral = True)
+    try:
+        for member in ctx.guild.members:
+            if member.bot:
+                continue
+            if rolestarget in member.roles:
+                continue
+            await member.add_roles(roleschoice)
+        embed = discord.Embed(color = 0x00ff00, title= "動作完了", description=f"以下のロールを指定のメンバーに付与しました。\n**{roleschoice.name}**")
+        await ctx.followup.send(embed=embed,ephemeral = True)
+    except discord.errors.Forbidden as error:
+        embed = discord.Embed(color = 0xff0000, title= "問題発生", description=f"以下の設定を確認してください。\n・「サーバー設定」→「ロール」を開く。\n・ロールの順序を入れ替え、「RoleManager」が操作したいロールよりも上にあるようにする。")
+        await ctx.followup.send(embed=embed,ephemeral = True)
 
 @tree.command(
     name="removeroles_from_unroles",#コマンド名
@@ -101,13 +127,18 @@ async def removeroles_from_unroles(ctx:discord.Interaction,rolestarget:discord.R
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
     await ctx.response.defer(ephemeral = True)
-    for member in ctx.guild.members:
-        if member.bot:
-            continue
-        if rolestarget in member.roles:
-            continue
-        await member.remove_roles(roleschoice)
-    await ctx.followup.send(f"指定のメンバーから{roleschoice.name}を剥奪しました",ephemeral = True)
+    try:
+        for member in ctx.guild.members:
+            if member.bot:
+                continue
+            if rolestarget in member.roles:
+                continue
+            await member.remove_roles(roleschoice)
+        embed = discord.Embed(color = 0x00ff00, title= "動作完了", description=f"以下のロールを指定のメンバーから剥奪しました。\n**{roleschoice.name}**")
+        await ctx.followup.send(embed=embed,ephemeral = True)
+    except discord.errors.Forbidden as error:
+        embed = discord.Embed(color = 0xff0000, title= "問題発生", description=f"ロール付与が正常に行われませんでした。\n以下の設定を確認してください。\n・「サーバー設定」→「ロール」を開く。\n・ロールの順序を入れ替え、「RoleManager」が操作したいロールよりも上にあるようにする。")
+        await ctx.followup.send(embed=embed,ephemeral = True)
 
 @client.event
 # clientの準備完了時に呼び出されるイベント
