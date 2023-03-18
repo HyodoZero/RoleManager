@@ -151,7 +151,7 @@ async def addroles_to_roles(ctx:discord.Interaction):
     embed = discord.Embed(color = 0x000000, title= "How to use", description=f"RoleManagerについて解説します。")
     embed.add_field(name="概要",value="このbotはサーバー内のメンバーへのロール付与を一括で行います。\nこのbotの機能は全て、\"/\"から始まるコマンドを入力することで実行されます。",inline=False)
     embed.add_field(name="使う前に",value="このbotを利用する前に、ロールの順位を設定する必要があります。\n・「サーバー設定」→「ロール」を開く。\n・ロールの順序を入れ替え、「RoleManager」が操作したいロールよりも上にあるようにする。",inline=False)
-    embed.add_field(name="コマンド一覧",inline=False)
+    embed.add_field(name="コマンド一覧",value="以下はこのbotで利用可能なコマンドです。",inline=False)
     embed.add_field(name="/addroles",value="このコマンドは、サーバー内の全員に特定のロールを付与します。",inline=False)
     embed.add_field(name="/removeroles",value="このコマンドは、サーバー内の全員から特定のロールを剥奪します。",inline=False)
     embed.add_field(name="/addroles_to_roles",value="このコマンドは、サーバー内の特定のロールを持っているメンバーに特定のロールを付与します。\n一つ目に入力したロールを持っているメンバーに、二つ目のロールを付与します。",inline=False)
