@@ -158,7 +158,7 @@ async def addroles_to_roles(ctx:discord.Interaction):
     embed.add_field(name="/removeroles_from_roles",value="このコマンドは、サーバー内の特定のロールを持っているメンバーから特定のロールを剥奪します。\n一つ目に入力したロールを持っているメンバーから、二つ目のロールを剥奪します。",inline=False)
     embed.add_field(name="/addroles_to_missingroles",value="このコマンドは、サーバー内の特定のロールを持っていないメンバーに特定のロールを付与します。\n一つ目に入力したロールを持っていないメンバーに、二つ目のロールを付与します。",inline=False)
     embed.add_field(name="/addroles_from_missingroles",value="このコマンドは、サーバー内の特定のロールを持っていないメンバーから特定のロールを剥奪します。\n一つ目に入力したロールを持っていないメンバーから、二つ目のロールを剥奪します。",inline=False)
-    await ctx.followup.send(embed=embed,ephemeral = True)
+    await ctx.response.send_message(embed=embed,ephemeral = True)
 
 @client.event
 # clientの準備完了時に呼び出されるイベント
