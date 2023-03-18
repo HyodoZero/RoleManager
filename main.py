@@ -168,4 +168,4 @@ async def on_ready():
     # await tree.sync()
     sys.stdout.write('ready')
 
-client.rmissing(TOKEN)
+client.run(TOKEN)
