@@ -97,10 +97,10 @@ async def removeroles_from_roles(ctx:discord.Interaction,rolestarget:discord.Rol
         await ctx.followup.send(embed=embed,ephemeral = True)
 
 @tree.command(
-    name="addroles_to_unroles",#コマンド名
+    name="addroles_to_missingroles",#コマンド名
     description="特定のロール非所有者に特定のロールを付与します。",#コマンドの説明
     )
-async def addroles_to_unroles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
+async def addroles_to_missingroles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
@@ -119,10 +119,10 @@ async def addroles_to_unroles(ctx:discord.Interaction,rolestarget:discord.Role,r
         await ctx.followup.send(embed=embed,ephemeral = True)
 
 @tree.command(
-    name="removeroles_from_unroles",#コマンド名
+    name="removeroles_from_missingroles",#コマンド名
     description="特定のロール非所有者から特定のロールを剥奪します。",#コマンドの説明
     )
-async def removeroles_from_unroles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
+async def removeroles_from_missingroles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
@@ -140,6 +140,26 @@ async def removeroles_from_unroles(ctx:discord.Interaction,rolestarget:discord.R
         embed = discord.Embed(color = 0xff0000, title= "問題発生", description=f"ロール付与が正常に行われませんでした。\n以下の設定を確認してください。\n・「サーバー設定」→「ロール」を開く。\n・ロールの順序を入れ替え、「RoleManager」が操作したいロールよりも上にあるようにする。")
         await ctx.followup.send(embed=embed,ephemeral = True)
 
+@tree.command(
+    name="help",#コマンド名
+    description="このbotの使い方です。",#コマンドの説明
+    )
+async def addroles_to_roles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
+    if not ctx.user.guild_permissions.manage_roles:
+        await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
+        return
+    embed = discord.Embed(color = 0x000000, title= "How to use", description=f"RoleManagerについて解説します。")
+    embed.add_field(name="概要",value="このbotはサーバー内のメンバーへのロール付与を一括で行います。\nこのbotの機能は全て、\"/\"から始まるコマンドを入力することで実行されます。",inline=False)
+    embed.add_field(name="使う前に",value="このbotを利用する前に、ロールの順位を設定する必要があります。\n・「サーバー設定」→「ロール」を開く。\n・ロールの順序を入れ替え、「RoleManager」が操作したいロールよりも上にあるようにする。",inline=False)
+    embed.add_field(name="コマンド一覧",inline=False)
+    embed.add_field(name="/addroles",value="このコマンドは、サーバー内の全員に特定のロールを付与します。",inline=False)
+    embed.add_field(name="/removeroles",value="このコマンドは、サーバー内の全員から特定のロールを剥奪します。",inline=False)
+    embed.add_field(name="/addroles_to_roles",value="このコマンドは、サーバー内の特定のロールを持っているメンバーに特定のロールを付与します。\n一つ目に入力したロールを持っているメンバーに、二つ目のロールを付与します。",inline=False)
+    embed.add_field(name="/removeroles_from_roles",value="このコマンドは、サーバー内の特定のロールを持っているメンバーから特定のロールを剥奪します。\n一つ目に入力したロールを持っているメンバーから、二つ目のロールを剥奪します。",inline=False)
+    embed.add_field(name="/addroles_to_missingroles",value="このコマンドは、サーバー内の特定のロールを持っていないメンバーに特定のロールを付与します。\n一つ目に入力したロールを持っていないメンバーに、二つ目のロールを付与します。",inline=False)
+    embed.add_field(name="/addroles_from_missingroles",value="このコマンドは、サーバー内の特定のロールを持っていないメンバーから特定のロールを剥奪します。\n一つ目に入力したロールを持っていないメンバーから、二つ目のロールを剥奪します。",inline=False)
+    await ctx.followup.send(embed=embed,ephemeral = True)
+
 @client.event
 # clientの準備完了時に呼び出されるイベント
 async def on_ready():
@@ -148,4 +168,4 @@ async def on_ready():
     # await tree.sync()
     sys.stdout.write('ready')
 
-client.run(TOKEN)
+client.rmissing(TOKEN)
