@@ -144,7 +144,7 @@ async def removeroles_from_missingroles(ctx:discord.Interaction,rolestarget:disc
     name="help",#コマンド名
     description="このbotの使い方です。",#コマンドの説明
     )
-async def addroles_to_roles(ctx:discord.Interaction,rolestarget:discord.Role,roleschoice:discord.Role):
+async def addroles_to_roles(ctx:discord.Interaction):
     if not ctx.user.guild_permissions.manage_roles:
         await ctx.response.send_message(f"実行する権限がありません",ephemeral = True)
         return
